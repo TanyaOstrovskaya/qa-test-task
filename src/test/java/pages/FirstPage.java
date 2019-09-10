@@ -25,7 +25,6 @@ public class FirstPage extends PageObjectPrototype {
 
     private WebDriverWait wait;
 
-
     public FirstPage(WebDriver driver) {
         super(driver);
         wait = new WebDriverWait(driver, Util.MAX_WAIT_IN_SECONDS);
@@ -47,7 +46,10 @@ public class FirstPage extends PageObjectPrototype {
         wait.until(ExpectedConditions.visibilityOf(startFreeTrialForm));
     }
 
-    public void waitUntilVerifySignUpPageIsCurrent(){
-        wait.until(ExpectedConditions.urlContains(VerifySignUpPage.pageFraction));
+    public void waitUntilResendPageIsCurrent(){
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.urlContains(ResendPage.PAGE_URL_SUBSTRING),
+                ExpectedConditions.urlContains(ResendVdPage.PAGE_URL_SUBSTRING)
+        ));
     }
 }

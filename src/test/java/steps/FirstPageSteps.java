@@ -1,9 +1,7 @@
 package steps;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.FirstPage;
-import utils.Util;
 
 public class FirstPageSteps {
     private FirstPage firstPage;
@@ -17,6 +15,6 @@ public class FirstPageSteps {
         firstPage.waitUntilStartFreeTrialFormOpened();
         firstPage.fillEmailInputField(email);
         firstPage.clickCreateMyWrikeAccountButton();
-        firstPage.waitUntilVerifySignUpPageIsCurrent();
+        firstPage.waitUntilResendPageIsCurrent();
     }
 }
