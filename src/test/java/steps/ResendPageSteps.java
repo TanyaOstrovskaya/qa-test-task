@@ -18,7 +18,7 @@ public class ResendPageSteps {
         return resendPage.isSubmitQuestionSuccessful();
     }
 
-    public boolean checkTwitterIconLinkAndIconCorrectness(){
+    public boolean checkTwitterIconLinkAndIconIsCorrect(){
         return resendPage.checkTwitterIconCorrect() && resendPage.checkTwitterLinkCorrect();
     }
 }

@@ -120,10 +120,12 @@ public class ResendPage extends PageObjectPrototype{
     }
 
     public boolean checkTwitterIconCorrect(){
-        return twitterLink.getAttribute("href").equalsIgnoreCase(Util.TWITTER_WRIKE_LINK);
+        return twitterIcon.isDisplayed() &&
+                twitterIcon.getAttribute("xlink:href").equalsIgnoreCase(Util.TWITTER_ICON_CONTENT_HREF);
     }
 
     public boolean checkTwitterLinkCorrect(){
-        return twitterIcon.getAttribute("xlink:href").equalsIgnoreCase(Util.TWITTER_ICON_CONTENT_HREF);
+        return twitterLink.isEnabled() &&
+                twitterLink.getAttribute("href").equalsIgnoreCase(Util.TWITTER_WRIKE_LINK);
     }
 }

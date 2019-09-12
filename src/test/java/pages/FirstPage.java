@@ -9,18 +9,16 @@ import utils.Util;
 
 public class FirstPage extends PageObjectPrototype {
 
-    @FindBy(xpath = "/html/body/div[1]/header/div[3]/div[2]/div/div/div[2]/div/form/button")    // TODO: try to make XPath simpler
+    @FindBy(xpath = "(//button)[3]")
     private WebElement getStartedForFreeButton;
 
-    // @FindBy(xpath = "//*[@id=\"modal-pro\"]/form/label[2]/button") // TODO: select which attribute is better
-    @FindBy(xpath = "/html/body/div[4]/div/form/label[2]/button")
+    @FindBy(xpath = "(//button)[10]")
     private WebElement createMyWrikeAccountButton;
 
-    // @FindBy(xpath = "//*[@id=\"modal-pro\"]/form/label[1]/input")
-    @FindBy(xpath = "/html/body/div[4]/div/form/label[1]/input")
+    @FindBy(xpath = "(//input)[8]")
     private WebElement enterEmailInput;
 
-    @FindBy(xpath = "/html/body/div[4]/div/form")
+    @FindBy(xpath = "(//form)[5]")
     private WebElement startFreeTrialForm;
 
     private WebDriverWait wait;

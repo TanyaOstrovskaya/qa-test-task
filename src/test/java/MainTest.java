@@ -10,7 +10,6 @@ import steps.FirstPageSteps;
 import steps.ResendPageSteps;
 import steps.ResendVdPageSteps;
 import utils.Util;
-
 import java.util.concurrent.TimeUnit;
 
 public class MainTest {
@@ -34,27 +33,32 @@ public class MainTest {
         var firstPageSteps = new FirstPageSteps(driver);
         firstPageSteps.createWrikeAccount(Util.generateRandomWrikeTestEmail());
         var url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains(ResendVdPage.PAGE_URL_SUBSTRING) || url.contains(ResendPage.PAGE_URL_SUBSTRING));
+        Assert.assertTrue("URL is incorrect after wrike account creation",
+                url.contains(ResendVdPage.PAGE_URL_SUBSTRING) || url.contains(ResendPage.PAGE_URL_SUBSTRING));
 
-        // ASSERT 2: answers submitted
+        // ASSERT 2, 3: answers submitted, twitter icon is correct
         if (url.contains(ResendVdPage.PAGE_URL_SUBSTRING)) {
-            var resendVdPageSteps = new ResendVdPageSteps(driver);
-            var isQuestionSubmitSuccessful = resendVdPageSteps.answerWrikeUsageQuestions();
-            Assert.assertTrue(isQuestionSubmitSuccessful);
-            Assert.assertTrue(resendVdPageSteps.checkTwitterIconLinkAndIconCorrectness());
+
+            // For "https://www.wrike.com/resend-vd" page
+
+            var steps = new ResendVdPageSteps(driver);
+            var isQuestionSubmit = steps.answerWrikeUsageQuestions();
+            var isTwitterCorrect = steps.checkTwitterIconLinkAndIconIsCorrect();
+            Assert.assertTrue("Question submission is unsuccessful", isQuestionSubmit);
+            Assert.assertTrue("Twitter icon or link is incorrect", isTwitterCorrect);
         } else if (url.contains(ResendPage.PAGE_URL_SUBSTRING)) {
-            var resendPageSteps = new ResendPageSteps(driver);
-            var isQuestionSubmitSuccessful = resendPageSteps.answerWrikeUsageQuestions();
-            Assert.assertTrue(isQuestionSubmitSuccessful);
+
+            // For "https://www.wrike.com/resend" and "https://www.wrike.com/resend-vc" pages
+
+            var steps = new ResendPageSteps(driver);
+            var isQuestionSubmit = steps.answerWrikeUsageQuestions();
+            var isTwitterCorrect =  steps.checkTwitterIconLinkAndIconIsCorrect();
+            Assert.assertTrue("Question submission is unsuccessful", isQuestionSubmit);
+            Assert.assertTrue("Twitter icon or link is incorrect", isTwitterCorrect);
         } else {
+
             Assert.fail("Url is not /resend or /resend-v* after wrike account creation");
         }
-
-
-
-
-        // ASSERT 3: Twitter button is correct
-        // Create results report
     }
 
     @AfterClass

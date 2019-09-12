@@ -14,10 +14,11 @@ public class ResendVdPageSteps {
         resendVdPage.selectRandomFirstQuestionOption();
         resendVdPage.selectRandomSecondQuestionOption();
         resendVdPage.selectRandomThirdQuestionOption();
+        resendVdPage.waitUntilSubmitSuccessfulBlockVisible();
         return resendVdPage.isSubmitQuestionSuccessful();
     }
 
-    public boolean checkTwitterIconLinkAndIconCorrectness(){
+    public boolean checkTwitterIconLinkAndIconIsCorrect(){
         return resendVdPage.checkTwitterIconCorrect() && resendVdPage.checkTwitterLinkCorrect();
     }
 }

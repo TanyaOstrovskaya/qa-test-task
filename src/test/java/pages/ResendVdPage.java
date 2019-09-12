@@ -3,6 +3,8 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Util;
 
 public class ResendVdPage extends PageObjectPrototype {
@@ -42,9 +44,11 @@ public class ResendVdPage extends PageObjectPrototype {
     @FindBy(xpath = "//div[@class='wg-footer__bottom-section']/descendant::*[name()='svg'][1]/child::*[1]")
     private WebElement twitterIcon;
 
+    private WebDriverWait wait;
 
     public ResendVdPage(WebDriver driver) {
         super(driver);
+        wait = new WebDriverWait(driver, Util.MAX_WAIT_IN_SECONDS);
     }
 
     public void selectRandomFirstQuestionOption(){
@@ -100,10 +104,17 @@ public class ResendVdPage extends PageObjectPrototype {
     }
 
     public boolean checkTwitterIconCorrect(){
-        return twitterLink.getAttribute("href").equalsIgnoreCase(Util.TWITTER_WRIKE_LINK);
+        return twitterIcon.isDisplayed() &&
+                twitterIcon.getAttribute("xlink:href").equalsIgnoreCase(Util.TWITTER_ICON_CONTENT_HREF);
+
     }
 
     public boolean checkTwitterLinkCorrect(){
-        return twitterIcon.getAttribute("xlink:href").equalsIgnoreCase(Util.TWITTER_ICON_CONTENT_HREF);
+        return twitterLink.isEnabled() &&
+                twitterLink.getAttribute("href").equalsIgnoreCase(Util.TWITTER_WRIKE_LINK);
+    }
+
+    public void waitUntilSubmitSuccessfulBlockVisible() {
+        wait.until(ExpectedConditions.visibilityOf(submitSuccessBlock));
     }
 }
